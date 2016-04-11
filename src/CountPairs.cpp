@@ -21,37 +21,52 @@ NOTE : Donot use any Global Variables
 */
 
 #include "stdafx.h"
-#include<stdio.h>
-#include<stdlib.h>
+
+
+/* sir i have tried this code but errors are raising so i have used non recursive
 int count = 0;
 //You can use this function ,for the actual recursion .Think of similar functions for all other problems.
 int count_pairs(char *str, int len, int start, int end)
 {
-	while (end<len)
+	
+	if(end<len)
 	{
-		if (str[start] == str[end])
-		{
-			count++;
-		}
-
-		start++;
-		end++;
-		if (count_pairs(str, len, start, end) == (-1))
-			return -1;
+		if (str[start++] == str[end++])
+		   count++;
+	    if (!count_pairs(str, len, start, end))
+			return 0;
 	}
-
-	return -1;
+    else
+	return 0;
 }
 
 int count_pairs_wrapper(char *str, int len)
 {
 	//Wrapper function which might call a recursive function ,which might take extra parameters .
-	if (str == NULL || len<0)
-		return 0;
-	if (count_pairs(str, len, 0, 2) == (-1))
+	
+	if (!count_pairs(str, len, 0, 2))
 		return count;
-
-
+	return -1;
+}*/
+int count_pairs_wrapper(char *str, int len)
+{
+	int i = 0, j = 1;
+	int count = 0;
+	while (i < len)
+	{
+		if (str[i] == str[i + 2]&&(i+2)<len)
+			count++;
+		i = i + 2;
+	}
+	while (j< len)
+	{
+		if (str[j] == str[j + 2]&&(j + 2)<len)
+			count++;
+		j = j+ 2;
+	}
+	
+	return count;
 }
+
 
 
