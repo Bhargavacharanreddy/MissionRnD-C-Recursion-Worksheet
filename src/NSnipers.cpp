@@ -43,6 +43,49 @@ P.S: The Above Problem is just a modified version of a popular BackTracking prob
 */
 
 #include "stdafx.h"
-int solve_nsnipers(int *battlefield, int n){
-	return 0;
+#include<math.h>
+#define TRUE 1
+#define FALSE 0
+#define MAXBOARDSIZE 11
+
+
+int n;
+
+
+
+int IsPositionSafeorNot(int row, int col,int *field)
+{
+	int i;
+
+	for (i = 0; i<row; i++)
+	{
+		if ((field[i] == col) || (abs(field[i] - col) == abs(i - row)))
+			return FALSE;
+	}
+	return TRUE;
+}
+
+void setSnipper(int row,int* field)
+{
+	int col;
+
+	for (col = 0; col<n; col++)
+	{
+		if (IsPositionSafeorNot(row, col, field))
+		{
+			field[row] = col;
+			if (row == n - 1)
+				return;
+			else
+				setSnipper(row + 1, field);
+		}
+	}
+}
+int solve_nsnipers(int *battlefield, int n)
+{
+	if (battlefield == NULL || n <= 3)
+		return 0;
+	setSnipper(0, battlefield);
+		return 1;
+	
 }
