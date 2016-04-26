@@ -34,7 +34,54 @@ Note : Check the function Parameters ,Its a double pointer .
 #include "stdafx.h"
 #include<stdlib.h>
 
+void  spiralOrder(int **A, int m, int n,int *result)
+{
+	int x = 0;
+	int i, k = 0, l = 0;
+	while (k < m && l < n)
+	{
+		/* Printing the first row  */
+		for (i = l; i < n; ++i)
+		{
+			result[x++]=A[k][i];
+		}
+		k++;
+
+		/* Printing the last column */
+		for (i = k; i < m; ++i)
+		{
+			result[x++] = A[i][n - 1];
+		}
+		n--;
+
+		/* Printing the last row */
+		if (k < m)
+		{
+			for (i = n - 1; i >= l; --i)
+			{
+				result[x++] = A[m - 1][i];
+			}
+			m--;
+		}
+
+		/* Printing the first column*/
+		if (l < n)
+		{
+			for (i = m - 1; i >= k; --i)
+			{
+				result[x++] = A[i][l];
+			}
+			l++;
+		}
+	}
+}
 int *spiral(int rows, int columns, int **input_array)
 {
+	if (input_array==NULL || rows<=0 || columns<=0)
 	return NULL;
+	int *result;
+	result = (int *)malloc((rows*columns)*sizeof(int));
+	spiralOrder(input_array, rows, columns, result);
+	return result;
+
 }
